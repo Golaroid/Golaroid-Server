@@ -3,15 +3,15 @@ spring:
     throw-exception-if-no-handler-found: true
 
   datasource:
-    url: jdbc:mariadb://${DB_URL:localhost:8080}/${DB_NAME:golaroid}?useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${DB_URL:localhost:3306}/${DB_NAME:golaroid}?useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: ${DB_USER:root}
-    password: ${DB_PASSWORD:123456789a}
+    password: ${DB_PASSWORD:123456789a@}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:
       hibernate:
         format_sql: true
@@ -27,15 +27,15 @@ spring:
       max-file-size: 50MB
       max-request-size: 50MB
 
-  redis:
-    host: ${REDIS_HOST}
-    port: ${REDIS_PORT}
-
-jwt:
-  accessSecret: ${JWT_ACCESS:c3RhY2s=c3RhY2s=c3RhY2s=c3RhY2s=}
-  refreshSecret: ${JWT_REFRESH:a25vd2xlZGdla25vd2xlZGdla25vd2xlZGdla25vd2xlZGdl}
-  accessExp: ${ACCESS_EXP:1800}
-  refreshExp: ${REFRESH_EXP:7200}
+#  redis:
+#    host: ${REDIS_HOST}
+#    port: ${REDIS_PORT}
+#
+#jwt:
+#  accessSecret: ${JWT_ACCESS:c3RhY2s=c3RhY2s=c3RhY2s=c3RhY2s=}
+#  refreshSecret: ${JWT_REFRESH:a25vd2xlZGdla25vd2xlZGdla25vd2xlZGdla25vd2xlZGdl}
+#  accessExp: ${ACCESS_EXP:1800}
+#  refreshExp: ${REFRESH_EXP:7200}
 
 cloud:
   aws:
