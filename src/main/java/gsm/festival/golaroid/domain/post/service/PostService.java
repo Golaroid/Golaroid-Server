@@ -25,12 +25,12 @@ public class PostService {
     public List<QueryPostsResponse> queryPostsService() {
         List<Post> posts = postRepository.findAll();
 
-        return posts.stream().map(p ->
+        return posts.stream().map(post ->
                 QueryPostsResponse.builder()
-                        .id(p.getId())
-                        .writer(p.getWriter())
-                        .code(p.getCode())
-                        .imageUrl(imageRepository.findByPost(p).getImageUrl())
+                        .id(post.getId())
+                        .writer(post.getWriter())
+                        .code(post.getCode())
+                        .imageUrl(imageRepository.findAllByPost(post).get(5).getImageUrl())
                         .build()
                 ).collect(Collectors.toList());
     }
@@ -39,7 +39,7 @@ public class PostService {
     public QueryPostDetailsResponse queryPostDetails(Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(PostNotFoundException::new);
-        Image image = imageRepository.findByPost(post);
+        Image image = imageRepository.findAllByPost(post).get(5)                                 ;
 
         return QueryPostDetailsResponse.builder()
                 .id(postId)
