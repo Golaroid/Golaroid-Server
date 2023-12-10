@@ -11,4 +11,5 @@ public class QueryPostsResponse {
     private final Long id;
     private final String writer;
     private final String code;
+    private final String imageUrl;
 }
