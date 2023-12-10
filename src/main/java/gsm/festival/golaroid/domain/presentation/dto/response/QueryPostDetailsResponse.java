@@ -7,9 +7,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class QueryPostsResponse {
+public class QueryPostDetailsResponse {
     private final Long id;
-    private final String writer;
-    private final String code;
     private final String imageUrl;
 }
