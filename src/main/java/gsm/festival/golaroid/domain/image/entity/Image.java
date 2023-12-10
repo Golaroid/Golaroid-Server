@@ -1,5 +1,7 @@
 package gsm.festival.golaroid.domain.image.entity;
 
+import gsm.festival.golaroid.domain.post.entity.Post;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,13 +11,8 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String imageUrl;
-
-    @Column(nullable = false)
-    private String writer;
-
-    @Column(nullable = false)
-    private String code;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
 
 }
