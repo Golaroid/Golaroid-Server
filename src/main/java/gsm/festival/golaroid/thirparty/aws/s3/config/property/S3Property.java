@@ -1,4 +1,4 @@
-package gsm.festival.golaroid.thirparty.aws.s3.config;
+package gsm.festival.golaroid.thirparty.aws.s3.config.property;
 
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;

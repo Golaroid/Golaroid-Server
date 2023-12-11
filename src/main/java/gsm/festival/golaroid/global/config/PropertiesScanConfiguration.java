@@ -1,12 +1,16 @@
 package gsm.festival.golaroid.global.config;
 
-import gsm.festival.golaroid.thirparty.aws.s3.config.S3Property;
+import gsm.festival.golaroid.thirparty.aws.property.AwsProperties;
+import gsm.festival.golaroid.thirparty.aws.s3.config.property.S3Property;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationPropertiesScan(
-        basePackageClasses = S3Property.class
+        basePackageClasses = {
+                S3Property.class,
+                AwsProperties.class
+        }
 )
 public class PropertiesScanConfiguration {
 }
