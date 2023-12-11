@@ -1,9 +1,11 @@
 package gsm.festival.golaroid.thirparty.aws.property;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
+@Getter
 @AllArgsConstructor
 @ConstructorBinding
 @ConfigurationProperties(prefix = "cloud.aws.credentials")
