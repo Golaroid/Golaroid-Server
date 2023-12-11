@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 
 @AllArgsConstructor
 @ConstructorBinding
-@ConfigurationProperties("cloud.aws.s3")
+@ConfigurationProperties(prefix = "cloud.aws.s3")
 public class S3Property {
     private final String bucket;
 }
