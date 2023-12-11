@@ -39,7 +39,7 @@ public class PostService {
     public QueryPostDetailsResponse queryPostDetails(Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(PostNotFoundException::new);
-        Image image = imageRepository.findAllByPost(post).get(5)                                 ;
+        Image image = imageRepository.findAllByPost(post).get(5);
 
         return QueryPostDetailsResponse.builder()
                 .id(postId)
