@@ -21,13 +21,11 @@ public class ImageService {
     private final ImageRepository imageRepository;
     private final PostRepository postRepository;
 
-    @Transactional(rollbackFor = Exception.class)
-    public void uploadImage(MultipartFile multipartFile) {
-        List<String> allowedExtensions = List.of("jpeg", "jpg", "png");
-        String fileExtension = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1).toLowerCase();
+    private static List<String> allowedExtensions = List.of("jpeg", "jpg", "png");
 
-        if (!allowedExtensions.contains(fileExtension))
-            throw new NotValidExtensionException();
+    @Transactional(rollbackFor = Exception.class)
+    public void uploadImage(MultipartFile multipartFile, Boolean isPublic) {
+        String fileExtension = isValidExtension(multipartFile);
 
         String code = RandomStringUtils.random(6, true, true);
         String fileName = code + fileExtension;
@@ -38,5 +36,31 @@ public class ImageService {
                 .post(null)
                 .build();
         imageRepository.save(image);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void uploadImage(List<MultipartFile> multipartFiles, Boolean isPublic) {
+        multipartFiles.stream().forEach(multipartFile -> {
+            String fileExtension = isValidExtension(multipartFile);
+
+            String code = RandomStringUtils.random(6, true, true);
+            String fileName = code + fileExtension;
+            String imageUrl = awsS3Util.uploadImage(multipartFile, fileName);
+
+            Image image = Image.builder()
+                    .imageUrl(imageUrl)
+                    .post(null)
+                    .build();
+            imageRepository.save(image);
+        });
+    }
+
+    private String isValidExtension(MultipartFile multipartFile) {
+        String fileExtension = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1).toLowerCase();
+
+        if (!allowedExtensions.contains(fileExtension))
+            throw new NotValidExtensionException();
+
+        return fileExtension;
     }
 }
