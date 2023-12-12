@@ -5,7 +5,6 @@ import gsm.festival.golaroid.domain.image.entity.Image;
 import gsm.festival.golaroid.domain.image.exception.NotValidExtensionException;
 import gsm.festival.golaroid.domain.image.repository.ImageRepository;
 import gsm.festival.golaroid.domain.post.entity.Post;
-import gsm.festival.golaroid.domain.post.repository.PostRepository;
 import gsm.festival.golaroid.domain.presentation.dto.request.UploadImageRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.print.DocFlavor;
 import java.util.List;
 
 @Service
@@ -22,7 +20,6 @@ public class ImageService {
 
     private final AwsS3Util awsS3Util;
     private final ImageRepository imageRepository;
-    private final PostRepository postRepository;
 
     private static List<String> allowedExtensions = List.of("jpeg", "jpg", "png");
 
