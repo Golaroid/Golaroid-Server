@@ -5,7 +5,7 @@ import gsm.festival.golaroid.domain.image.entity.Image;
 import gsm.festival.golaroid.domain.image.exception.NotValidExtensionException;
 import gsm.festival.golaroid.domain.image.repository.ImageRepository;
 import gsm.festival.golaroid.domain.post.entity.Post;
-import gsm.festival.golaroid.domain.presentation.dto.request.UploadImageRequest;
+import gsm.festival.golaroid.domain.image.presentation.dto.request.UploadImageRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
