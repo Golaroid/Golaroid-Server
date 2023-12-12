@@ -1,6 +1,7 @@
 package gsm.festival.golaroid.domain.post.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,4 +22,9 @@ public class Post {
     @Column(nullable = false)
     private String code;
 
+    @Builder
+    public Post(String writer, String code) {
+        this.writer = writer;
+        this.code = code;
+    }
 }
