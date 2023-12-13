@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +20,12 @@ public class ImageController {
     @PostMapping
     public ResponseEntity<Void> uploadImage(@RequestPart MultipartFile multipartFile, @RequestBody @Valid UploadImageRequest uploadImageRequest) {
         imageService.uploadImage(multipartFile, uploadImageRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> uploadImages(@RequestPart List<MultipartFile> multipartFilesList, @RequestBody @Valid UploadImageRequest uploadImageRequest) {
+        imageService.uploadImage(multipartFilesList, uploadImageRequest);
         return ResponseEntity.ok().build();
     }
 }
