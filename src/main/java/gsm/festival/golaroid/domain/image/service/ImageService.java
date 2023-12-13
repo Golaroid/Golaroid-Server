@@ -27,13 +27,14 @@ public class ImageService {
     public void uploadImage(MultipartFile multipartFile, UploadImageRequest uploadImageRequest) {
         String fileExtension = isValidExtension(multipartFile);
 
-        String code = RandomStringUtils.random(6, true, true);
-        String fileName = code + fileExtension;
+        Post post = uploadImageRequest.getIsPublic() ? createPost(uploadImageRequest.getWriter()) : null;
+
+        String fileName = post.getCode() + fileExtension;
         String imageUrl = awsS3Util.uploadImage(multipartFile, fileName);
 
         Image image = Image.builder()
                 .imageUrl(imageUrl)
-                .post(null)
+                .post(post)
                 .build();
         imageRepository.save(image);
     }
@@ -50,7 +51,7 @@ public class ImageService {
 
             Image image = Image.builder()
                     .imageUrl(imageUrl)
-                    .post(null)
+                    .post(post)
                     .build();
             imageRepository.save(image);
         });
