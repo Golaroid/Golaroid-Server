@@ -23,7 +23,7 @@ public class ImageController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping
+    @PostMapping("/snap-shot")
     public ResponseEntity<Void> uploadImages(@RequestPart List<MultipartFile> multipartFilesList, @RequestBody @Valid UploadImageRequest uploadImageRequest) {
         imageService.uploadImage(multipartFilesList, uploadImageRequest);
         return ResponseEntity.ok().build();

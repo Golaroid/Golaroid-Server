@@ -1,8 +1,8 @@
-package gsm.festival.golaroid.domain.presentation;
+package gsm.festival.golaroid.domain.post.presentation;
 
+import gsm.festival.golaroid.domain.post.presentation.dto.response.QueryPostDetailsResponse;
 import gsm.festival.golaroid.domain.post.service.PostService;
-import gsm.festival.golaroid.domain.presentation.dto.response.QueryPostDetailsResponse;
-import gsm.festival.golaroid.domain.presentation.dto.response.QueryPostsResponse;
+import gsm.festival.golaroid.domain.post.presentation.dto.response.QueryPostsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
