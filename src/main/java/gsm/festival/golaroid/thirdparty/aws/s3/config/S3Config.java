@@ -1,11 +1,11 @@
-package gsm.festival.golaroid.thirparty.aws.s3.config;
+package gsm.festival.golaroid.thirdparty.aws.s3.config;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
-import gsm.festival.golaroid.thirparty.aws.property.AwsProperties;
+import gsm.festival.golaroid.thirdparty.aws.property.AwsProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package gsm.festival.golaroid.thirparty.aws.property;
+package gsm.festival.golaroid.thirdparty.aws.property;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package gsm.festival.golaroid.thirparty.aws.s3.config.property;
+package gsm.festival.golaroid.thirdparty.aws.s3.config.property;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
