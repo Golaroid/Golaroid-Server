@@ -1,4 +1,4 @@
-package gsm.festival.golaroid.thirdparty.feign.dto.request;
+package gsm.festival.golaroid.domain.image.presentation.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
