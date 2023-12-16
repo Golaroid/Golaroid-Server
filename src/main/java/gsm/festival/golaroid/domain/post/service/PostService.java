@@ -27,23 +27,24 @@ public class PostService {
 
         return posts.stream().map(post ->
                 QueryPostsResponse.builder()
-                        .id(post.getId())
+                        .postId(post.getId())
                         .writer(post.getWriter())
                         .code(post.getCode())
-                        .imageUrl(imageRepository.findAllByPost(post).get(5).getImageUrl())
+                        .imageUrl(imageRepository.findAllByPost(post).get(0).getImageUrl())
                         .build()
                 ).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public QueryPostDetailsResponse queryPostDetails(Long postId) {
-        Post post = postRepository.findById(postId)
+    public QueryPostDetailsResponse queryPostDetails(String code) {
+        Post post = postRepository.findByCode(code)
                 .orElseThrow(PostNotFoundException::new);
-        Image image = imageRepository.findAllByPost(post).get(5);
+        Image image = imageRepository.findAllByPost(post).get(0);
 
         return QueryPostDetailsResponse.builder()
-                .id(postId)
+                .id(post.getId())
                 .imageUrl(image.getImageUrl())
+                .writer(post.getWriter())
                 .build();
     }
 }

@@ -8,6 +8,7 @@ import gsm.festival.golaroid.domain.image.presentation.dto.request.RemoveBgReque
 import gsm.festival.golaroid.domain.image.presentation.dto.request.UploadImageRequest;
 import gsm.festival.golaroid.domain.image.repository.ImageRepository;
 import gsm.festival.golaroid.domain.post.entity.Post;
+import gsm.festival.golaroid.domain.post.entity.constant.DisclosureStatus;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.HttpEntity;
@@ -39,7 +40,8 @@ public class ImageService {
     public void uploadImage(MultipartFile multipartFile, UploadImageRequest uploadImageRequest) {
         String fileExtension = isValidExtension(multipartFile);
 
-        Post post = uploadImageRequest.getIsPublic() ? createPost(uploadImageRequest.getWriter()) : createPost(uploadImageRequest.getWriter());
+        Post post = uploadImageRequest.getIsPublic() ?
+                createPost(uploadImageRequest.getWriter(), DisclosureStatus.PUBLIC) : createPost(uploadImageRequest.getWriter(), DisclosureStatus.PRIVATE);
 
         String fileName = post.getCode() + "." + fileExtension;
         String imageUrl = awsS3Util.uploadImage(multipartFile, fileName);
@@ -52,7 +54,8 @@ public class ImageService {
         multipartFiles.stream().forEach(multipartFile -> {
             String fileExtension = isValidExtension(multipartFile);
 
-            Post post = uploadImageRequest.getIsPublic() ? createPost(uploadImageRequest.getWriter()) : null;
+            Post post = uploadImageRequest.getIsPublic() ?
+                    createPost(uploadImageRequest.getWriter(), DisclosureStatus.PUBLIC) : createPost(uploadImageRequest.getWriter(), DisclosureStatus.PRIVATE);
 
             String fileName = post.getCode() + "." + fileExtension;
             String imageUrl = awsS3Util.uploadImage(multipartFile, fileName);
@@ -75,11 +78,12 @@ public class ImageService {
         return fileExtension;
     }
 
-    private Post createPost(String writer) {
+    private Post createPost(String writer, DisclosureStatus disclosureStatus) {
         String code = RandomStringUtils.random(6, true, true);
         Post post = Post.builder()
                 .writer(writer)
                 .code(code)
+                .disclosureStatus(disclosureStatus)
                 .build();
 
         return post;

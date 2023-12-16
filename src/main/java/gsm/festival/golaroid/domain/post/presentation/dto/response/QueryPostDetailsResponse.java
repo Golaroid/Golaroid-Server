@@ -10,4 +10,5 @@ import lombok.Getter;
 public class QueryPostDetailsResponse {
     private final Long id;
     private final String imageUrl;
+    private final String writer;
 }

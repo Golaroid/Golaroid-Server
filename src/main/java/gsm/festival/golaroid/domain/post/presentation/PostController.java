@@ -5,10 +5,8 @@ import gsm.festival.golaroid.domain.post.service.PostService;
 import gsm.festival.golaroid.domain.post.presentation.dto.response.QueryPostsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -24,9 +22,9 @@ public class PostController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{post_id}")
-    public ResponseEntity<QueryPostDetailsResponse> queryPostById(@PathVariable("post_id") Long postId) {
-        QueryPostDetailsResponse response = postService.queryPostDetails(postId);
+    @GetMapping("/detail")
+    public ResponseEntity<QueryPostDetailsResponse> queryPostByPostCode(@RequestParam String code) {
+        QueryPostDetailsResponse response = postService.queryPostDetails(code);
         return ResponseEntity.ok(response);
     }
 }
