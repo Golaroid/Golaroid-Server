@@ -3,58 +3,58 @@ package gsm.festival.golaroid.thirdparty.feign.dto.request;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.validation.constraints.NotBlank;
-
 @Getter
 public class RemoveBgRequest {
 
-    @NotBlank
-    private final String imageUrl;
+    private final String image_file_b64;
 
-    @NotBlank
-    private final String size = "auto";
+    private final String image_url;
 
-    @NotBlank
-    private final String type = "auto";
+    private final String size;
 
-    @NotBlank
-    private final String typeLevel = "1";
+    private final String type;
 
-    @NotBlank
-    private final String format = "auto";
+    private final String type_level;
 
-    @NotBlank
-    private final String roi = "0% 0% 100% 100%";
+    private final String format;
 
-    @NotBlank
-    private final Boolean crop = false;
+    private final String roi;
 
-    @NotBlank
-    private final String cropMargin = "0";
+    private final Boolean crop;
 
-    @NotBlank
-    private final String scale = "original";
+    private final String crop_margin;
 
-    @NotBlank
-    private final String position = "original";
+    private final String scale;
 
-    @NotBlank
-    private final String channels = "rgba";
+    private final String position;
 
-    @NotBlank
-    private final Boolean addShadow = false;
+    private final String channels;
 
-    @NotBlank
-    private final Boolean semiTransparency = true;
+    private final Boolean add_shadow;
 
-    @NotBlank
-    private final String bgColor = "";
+    private final Boolean semiTransparency;
 
-    @NotBlank
-    private final String bgImageUrl ="";
+    private final String bg_color;
+
+    private final String bg_image_url;
 
     @Builder
     public RemoveBgRequest(String imageUrl) {
-        this.imageUrl = imageUrl;
+        this.image_file_b64 = "";
+        this.image_url = imageUrl;
+        this.size = "auto";
+        this.type = "auto";
+        this.type_level = "1";
+        this.format = "auto";
+        this.roi = "0% 0% 100% 100%";
+        this.crop = false;
+        this.crop_margin = "0";
+        this.scale = "original";
+        this.position = "original";
+        this.channels = "rgba";
+        this.add_shadow = false;
+        this.semiTransparency = true;
+        this.bg_color = "";
+        this.bg_image_url ="";
     }
 }

@@ -18,13 +18,13 @@ public class ImageController {
     private final ImageService imageService;
 
     @PostMapping
-    public ResponseEntity<Void> uploadImage(@RequestPart MultipartFile multipartFile, @RequestBody @Valid UploadImageRequest uploadImageRequest) {
+    public ResponseEntity<Void> uploadImage(@RequestPart(name = "image") MultipartFile multipartFile, @RequestPart(value = "request") @Valid UploadImageRequest uploadImageRequest) {
         imageService.uploadImage(multipartFile, uploadImageRequest);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/snap-shot")
-    public ResponseEntity<Void> uploadImages(@RequestPart List<MultipartFile> multipartFilesList, @RequestBody @Valid UploadImageRequest uploadImageRequest) {
+    public ResponseEntity<Void> uploadImages(@RequestPart(name = "images") List<MultipartFile> multipartFilesList, @RequestPart(value = "request") @Valid UploadImageRequest uploadImageRequest) {
         imageService.uploadImage(multipartFilesList, uploadImageRequest);
         return ResponseEntity.ok().build();
     }

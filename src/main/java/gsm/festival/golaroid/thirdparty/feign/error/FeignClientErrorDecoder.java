@@ -12,7 +12,6 @@ import gsm.festival.golaroid.thirdparty.feign.error.exception.RateLimitExceededE
 public class FeignClientErrorDecoder implements ErrorDecoder {
     @Override
     public Exception decode(String methodKey, Response response) {
-
         if (response.status() >= 400)
             switch (response.status()) {
                 case 400:
