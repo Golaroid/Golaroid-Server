@@ -4,6 +4,8 @@ import gsm.festival.golaroid.domain.image.entity.Image;
 import gsm.festival.golaroid.domain.post.entity.Post;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 public interface ImageRepository extends CrudRepository<Image, Long> {
-    Image findByPost(Post post);
+    List<Image> findAllByPost(Post post);
 }

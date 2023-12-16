@@ -3,10 +3,11 @@ package gsm.festival.golaroid.domain.post.service;
 import gsm.festival.golaroid.domain.image.entity.Image;
 import gsm.festival.golaroid.domain.image.repository.ImageRepository;
 import gsm.festival.golaroid.domain.post.entity.Post;
+import gsm.festival.golaroid.domain.post.entity.constant.DisclosureStatus;
 import gsm.festival.golaroid.domain.post.exception.PostNotFoundException;
 import gsm.festival.golaroid.domain.post.repository.PostRepository;
-import gsm.festival.golaroid.domain.presentation.dto.response.QueryPostDetailsResponse;
-import gsm.festival.golaroid.domain.presentation.dto.response.QueryPostsResponse;
+import gsm.festival.golaroid.domain.post.presentation.dto.response.QueryPostDetailsResponse;
+import gsm.festival.golaroid.domain.post.presentation.dto.response.QueryPostsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,27 +24,28 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public List<QueryPostsResponse> queryPostsService() {
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.findAllByDisclosureStatus(DisclosureStatus.PUBLIC);
 
-        return posts.stream().map(p ->
+        return posts.stream().map(post ->
                 QueryPostsResponse.builder()
-                        .id(p.getId())
-                        .writer(p.getWriter())
-                        .code(p.getCode())
-                        .imageUrl(imageRepository.findByPost(p).getImageUrl())
+                        .postId(post.getId())
+                        .writer(post.getWriter())
+                        .code(post.getCode())
+                        .imageUrl(imageRepository.findAllByPost(post).get(0).getImageUrl())
                         .build()
                 ).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public QueryPostDetailsResponse queryPostDetails(Long postId) {
-        Post post = postRepository.findById(postId)
+    public QueryPostDetailsResponse queryPostDetails(String code) {
+        Post post = postRepository.findByCode(code)
                 .orElseThrow(PostNotFoundException::new);
-        Image image = imageRepository.findByPost(post);
+        Image image = imageRepository.findAllByPost(post).get(0);
 
         return QueryPostDetailsResponse.builder()
-                .id(postId)
+                .postId(post.getId())
                 .imageUrl(image.getImageUrl())
+                .writer(post.getWriter())
                 .build();
     }
 }

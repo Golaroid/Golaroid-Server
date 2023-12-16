@@ -27,16 +27,6 @@ spring:
       max-file-size: 50MB
       max-request-size: 50MB
 
-#  redis:
-#    host: ${REDIS_HOST}
-#    port: ${REDIS_PORT}
-#
-#jwt:
-#  accessSecret: ${JWT_ACCESS:c3RhY2s=c3RhY2s=c3RhY2s=c3RhY2s=}
-#  refreshSecret: ${JWT_REFRESH:a25vd2xlZGdla25vd2xlZGdla25vd2xlZGdla25vd2xlZGdl}
-#  accessExp: ${ACCESS_EXP:1800}
-#  refreshExp: ${REFRESH_EXP:7200}
-
 cloud:
   aws:
     s3:
@@ -48,3 +38,6 @@ cloud:
     credentials:
       access-key: ${S3_ACCESS_KEY}
       secret-key: ${S3_SECRET_KEY}
+
+removeBg:
+  api-key: ${X_API_KEY}

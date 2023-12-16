@@ -1,4 +1,4 @@
-package gsm.festival.golaroid.domain.presentation.dto.response;
+package gsm.festival.golaroid.domain.post.presentation.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +8,7 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class QueryPostsResponse {
-    private final Long id;
+    private final Long postId;
     private final String writer;
     private final String code;
     private final String imageUrl;
