@@ -8,7 +8,7 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class QueryPostDetailsResponse {
-    private final Long id;
+    private final Long postId;
     private final String imageUrl;
     private final String writer;
 }

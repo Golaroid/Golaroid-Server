@@ -42,7 +42,7 @@ public class PostService {
         Image image = imageRepository.findAllByPost(post).get(0);
 
         return QueryPostDetailsResponse.builder()
-                .id(post.getId())
+                .postId(post.getId())
                 .imageUrl(image.getImageUrl())
                 .writer(post.getWriter())
                 .build();
