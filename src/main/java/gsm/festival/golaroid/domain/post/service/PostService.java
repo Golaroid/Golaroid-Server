@@ -3,6 +3,7 @@ package gsm.festival.golaroid.domain.post.service;
 import gsm.festival.golaroid.domain.image.entity.Image;
 import gsm.festival.golaroid.domain.image.repository.ImageRepository;
 import gsm.festival.golaroid.domain.post.entity.Post;
+import gsm.festival.golaroid.domain.post.entity.constant.DisclosureStatus;
 import gsm.festival.golaroid.domain.post.exception.PostNotFoundException;
 import gsm.festival.golaroid.domain.post.repository.PostRepository;
 import gsm.festival.golaroid.domain.post.presentation.dto.response.QueryPostDetailsResponse;
@@ -23,7 +24,7 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public List<QueryPostsResponse> queryPostsService() {
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.findAllByDisclosureStatus(DisclosureStatus.PUBLIC);
 
         return posts.stream().map(post ->
                 QueryPostsResponse.builder()

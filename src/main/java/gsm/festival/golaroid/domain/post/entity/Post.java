@@ -24,6 +24,7 @@ public class Post {
     private String code;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private DisclosureStatus disclosureStatus;
 
     @Builder

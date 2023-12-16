@@ -49,6 +49,8 @@ public class ImageService {
         multipartFiles.stream().forEach(multipartFile -> {
             String fileExtension = isValidExtension(multipartFile);
 
+            System.out.println(uploadImageRequest.getIsPublic());
+
             Post post = uploadImageRequest.getIsPublic() ?
                     createPost(uploadImageRequest.getWriter(), DisclosureStatus.PUBLIC) : createPost(uploadImageRequest.getWriter(), DisclosureStatus.PRIVATE);
 
