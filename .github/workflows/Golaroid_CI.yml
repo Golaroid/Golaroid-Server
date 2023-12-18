@@ -16,7 +16,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.GOLAROID_MYSQL_PASSWORD }}
-          MYSQL_DATABASE: knowledge
+          MYSQL_DATABASE: golaroid
         ports:
           - 3306:3306
 
