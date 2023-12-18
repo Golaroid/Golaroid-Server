@@ -45,11 +45,9 @@ public class ImageService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void uploadImage(List<MultipartFile> multipartFiles, UploadImageRequest uploadImageRequest) {
+    public void uploadImages(List<MultipartFile> multipartFiles, UploadImageRequest uploadImageRequest) {
         multipartFiles.stream().forEach(multipartFile -> {
             String fileExtension = isValidExtension(multipartFile);
-
-            System.out.println(uploadImageRequest.getIsPublic());
 
             Post post = uploadImageRequest.getIsPublic() ?
                     createPost(uploadImageRequest.getWriter(), DisclosureStatus.PUBLIC) : createPost(uploadImageRequest.getWriter(), DisclosureStatus.PRIVATE);
@@ -122,12 +120,12 @@ public class ImageService {
             }
 
             @Override
-            public byte[] getBytes() throws IOException {
+            public byte[] getBytes() {
                 return byteArray;
             }
 
             @Override
-            public InputStream getInputStream() throws IOException {
+            public InputStream getInputStream() {
                 return new ByteArrayInputStream(byteArray);
             }
 
