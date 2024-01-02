@@ -4,6 +4,7 @@ import gsm.festival.golaroid.global.error.ErrorCode;
 import gsm.festival.golaroid.global.error.ErrorResponse;
 import gsm.festival.golaroid.global.error.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,7 +17,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleBaseException(BaseException exception) {
         log.warn("Error Message : " + exception.getMessage());
         ErrorCode errorCode = exception.getErrorCode();
-        ErrorResponse errorResponse = new ErrorResponse(errorCode.getErrorMessage(), errorCode.getErrorStatus());
-        return ResponseEntity.ok(errorResponse);
+        System.out.println(errorCode.getErrorStatus());
+        return new ResponseEntity(errorCode.getErrorMessage(), HttpStatus.valueOf(errorCode.getErrorStatus()));
     }
 }

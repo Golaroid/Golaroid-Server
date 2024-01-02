@@ -1,6 +1,7 @@
 package gsm.festival.golaroid.domain.post.service;
 
 import gsm.festival.golaroid.domain.image.entity.Image;
+import gsm.festival.golaroid.domain.image.exception.ImageNotFoundException;
 import gsm.festival.golaroid.domain.image.repository.ImageRepository;
 import gsm.festival.golaroid.domain.post.entity.Post;
 import gsm.festival.golaroid.domain.post.entity.constant.DisclosureStatus;
@@ -31,7 +32,8 @@ public class PostService {
                         .postId(post.getId())
                         .writer(post.getWriter())
                         .code(post.getCode())
-                        .imageUrl(imageRepository.findAllByPost(post).get(0).getImageUrl())
+                        .imageUrl(imageRepository.findByPost(post)
+                                .orElseThrow(ImageNotFoundException::new).getImageUrl())
                         .build()
                 ).collect(Collectors.toList());
     }
@@ -40,13 +42,12 @@ public class PostService {
     public QueryPostDetailsResponse queryPostDetails(String code) {
         Post post = postRepository.findByCode(code)
                 .orElseThrow(PostNotFoundException::new);
-        List<Image> imageList = imageRepository.findAllByPost(post);
+        Image image = imageRepository.findByPost(post)
+                .orElseThrow(ImageNotFoundException::new);
 
         return QueryPostDetailsResponse.builder()
                 .postId(post.getId())
-                .imageUrl(imageList.stream().map(image ->
-                        image.getImageUrl()
-                ).collect(Collectors.toList()))
+                .imageUrl(image.getImageUrl())
                 .writer(post.getWriter())
                 .build();
     }
