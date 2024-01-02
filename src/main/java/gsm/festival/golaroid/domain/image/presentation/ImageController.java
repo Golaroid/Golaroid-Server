@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,13 +18,13 @@ public class ImageController {
 
     @PostMapping
     public ResponseEntity<Void> uploadImage(@RequestPart(name = "image") MultipartFile multipartFile, @RequestPart(value = "request") @Valid UploadImageRequest uploadImageRequest) {
-        imageService.uploadImage(multipartFile, uploadImageRequest);
+        imageService.uploadImageRemoveBackground(multipartFile, uploadImageRequest);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/snap-shot")
-    public ResponseEntity<Void> uploadImages(@RequestPart(name = "images") List<MultipartFile> multipartFilesList, @RequestPart(value = "request") @Valid UploadImageRequest uploadImageRequest) {
-        imageService.uploadImages(multipartFilesList, uploadImageRequest);
+    public ResponseEntity<Void> uploadImages(@RequestPart(name = "image") MultipartFile multipartFile, @RequestPart(value = "request") @Valid UploadImageRequest uploadImageRequest) {
+        imageService.uploadImage(multipartFile, uploadImageRequest);
         return ResponseEntity.ok().build();
     }
 }

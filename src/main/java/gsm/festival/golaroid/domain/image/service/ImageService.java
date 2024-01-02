@@ -32,7 +32,7 @@ public class ImageService {
     private static List<String> allowedExtensions = List.of("jpeg", "jpg", "png");
 
     @Transactional(rollbackFor = Exception.class)
-    public void uploadImage(MultipartFile multipartFile, UploadImageRequest uploadImageRequest) {
+    public String uploadImageRemoveBackground(MultipartFile multipartFile, UploadImageRequest uploadImageRequest) {
         String fileExtension = isValidExtension(multipartFile);
 
         Post post = uploadImageRequest.getIsPublic() ?
@@ -41,27 +41,25 @@ public class ImageService {
         String fileName = post.getCode() + "." + fileExtension;
         String imageUrl = awsS3Util.uploadImage(multipartFile, fileName);
 
-        saveImage(imageUrl, post);
+        byte[] responseEntity = removeBgUtil.removeBackground(imageUrl);
+
+        awsS3Util.deleteImage(fileName);
+        awsS3Util.uploadImage(convertToMultipartFile(responseEntity, fileName), fileName);
+
+        return saveImage(imageUrl, post);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void uploadImages(List<MultipartFile> multipartFiles, UploadImageRequest uploadImageRequest) {
-        multipartFiles.stream().forEach(multipartFile -> {
-            String fileExtension = isValidExtension(multipartFile);
+    public String uploadImage(MultipartFile multipartFile, UploadImageRequest uploadImageRequest) {
+        String fileExtension = isValidExtension(multipartFile);
 
-            Post post = uploadImageRequest.getIsPublic() ?
-                    createPost(uploadImageRequest.getWriter(), DisclosureStatus.PUBLIC) : createPost(uploadImageRequest.getWriter(), DisclosureStatus.PRIVATE);
+        Post post = uploadImageRequest.getIsPublic() ?
+                createPost(uploadImageRequest.getWriter(), DisclosureStatus.PUBLIC) : createPost(uploadImageRequest.getWriter(), DisclosureStatus.PRIVATE);
 
-            String fileName = post.getCode() + "." + fileExtension;
-            String imageUrl = awsS3Util.uploadImage(multipartFile, fileName);
+        String fileName = post.getCode() + "." + fileExtension;
+        String imageUrl = awsS3Util.uploadImage(multipartFile, fileName);
 
-            byte[] responseEntity = removeBgUtil.removeBackground(imageUrl);
-
-            awsS3Util.deleteImage(fileName);
-            awsS3Util.uploadImage(convertToMultipartFile(responseEntity, fileName), fileName);
-
-            saveImage(imageUrl, post);
-        });
+        return saveImage(imageUrl, post);
     }
 
     private String isValidExtension(MultipartFile multipartFile) {
@@ -84,12 +82,14 @@ public class ImageService {
         return post;
     }
 
-    private void saveImage(String imageUrl, Post post) {
+    private String saveImage(String imageUrl, Post post) {
         Image image = Image.builder()
                 .imageUrl(imageUrl)
                 .post(post)
                 .build();
         imageRepository.save(image);
+
+        return imageUrl;
     }
 
     private MultipartFile convertToMultipartFile(byte[] byteArray, String fileName) {
