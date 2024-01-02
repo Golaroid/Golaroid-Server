@@ -40,11 +40,13 @@ public class PostService {
     public QueryPostDetailsResponse queryPostDetails(String code) {
         Post post = postRepository.findByCode(code)
                 .orElseThrow(PostNotFoundException::new);
-        Image image = imageRepository.findAllByPost(post).get(0);
+        List<Image> imageList = imageRepository.findAllByPost(post);
 
         return QueryPostDetailsResponse.builder()
                 .postId(post.getId())
-                .imageUrl(image.getImageUrl())
+                .imageUrl(imageList.stream().map(image ->
+                        image.getImageUrl()
+                ).collect(Collectors.toList()))
                 .writer(post.getWriter())
                 .build();
     }
