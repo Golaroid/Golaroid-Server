@@ -17,6 +17,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleBaseException(BaseException exception) {
         log.warn("Error Message : " + exception.getMessage());
         ErrorCode errorCode = exception.getErrorCode();
-        return new ResponseEntity(errorCode.getErrorMessage(), HttpStatus.valueOf(errorCode.getErrorStatus()));
+        return new ResponseEntity(new ErrorResponse(errorCode.getErrorMessage(), errorCode.getErrorStatus()), HttpStatus.valueOf(errorCode.getErrorStatus()));
     }
 }
