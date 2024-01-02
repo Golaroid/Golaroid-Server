@@ -17,13 +17,13 @@ public class ImageController {
     private final ImageService imageService;
 
     @PostMapping
-    public ResponseEntity<Void> uploadImage(@RequestPart(name = "image") MultipartFile multipartFile, @RequestPart(value = "request") @Valid UploadImageRequest uploadImageRequest) {
+    public ResponseEntity<Void> uploadImageRemoveBackground(@RequestPart(name = "image") MultipartFile multipartFile, @RequestPart(value = "request") @Valid UploadImageRequest uploadImageRequest) {
         imageService.uploadImageRemoveBackground(multipartFile, uploadImageRequest);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/snap-shot")
-    public ResponseEntity<Void> uploadImages(@RequestPart(name = "image") MultipartFile multipartFile, @RequestPart(value = "request") @Valid UploadImageRequest uploadImageRequest) {
+    public ResponseEntity<Void> uploadImage(@RequestPart(name = "image") MultipartFile multipartFile, @RequestPart(value = "request") @Valid UploadImageRequest uploadImageRequest) {
         imageService.uploadImage(multipartFile, uploadImageRequest);
         return ResponseEntity.ok().build();
     }
